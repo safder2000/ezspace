@@ -1,9 +1,10 @@
-import 'package:ezspace/application/bloc/home_bloc.dart';
 import 'package:ezspace/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'application/home_bloc/home_bloc.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

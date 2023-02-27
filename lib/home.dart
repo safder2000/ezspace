@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:ezspace/application/bloc/home_bloc.dart';
+import 'package:ezspace/application/text_legth_bloc/text_length_bloc.dart';
 import 'package:ezspace/core/const_sizedbox.dart';
 import 'package:ezspace/infrastrecture/fetch_Job_designations.dart';
 
@@ -9,40 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'application/home_bloc/home_bloc.dart';
 import 'widgets/button.dart';
 
-class HomePage extends StatefulWidget {
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   final textController = TextEditingController();
 
-  int charLength = 0;
+  // int charLength = 0;
   List<String> suggestons = [];
-  _onChanged(String value) {
-    setState(() {
-      charLength = value.length;
-    });
-  }
 
-  // fetchdJobs() async {
-  //   try {
-  //     suggestons = await JobDesesignationRepo.fetchDesignations();
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
-  // @override
-  // void initState() {
-  //   {
-  //     fetchdJobs();
-  //   }
-
-  //   super.initState();
-  // }
-
+  // _onChanged(String value) {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -132,7 +108,8 @@ class _HomePageState extends State<HomePage> {
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(200),
                 ],
-                onChanged: _onChanged,
+                onChanged: (value) => BlocProvider.of<TextLengthBloc>(context)
+                    .add(LenthChanges(newValue: value.length)),
                 textAlign: TextAlign.start,
                 textAlignVertical: TextAlignVertical.top,
                 expands: true,
@@ -144,7 +121,11 @@ class _HomePageState extends State<HomePage> {
                     hintText: 'Describe yourself (in min 50 charecters)'),
               ),
             ),
-            CharCount(charLength: charLength),
+            BlocBuilder<TextLengthBloc, TextLengthState>(
+              builder: (context, state) {
+                return CharCount(charLength: state.totalChar);
+              },
+            ),
             height_50,
             const Button()
           ],

@@ -1,5 +1,5 @@
-import 'package:ezspace/application/bloc/home_bloc.dart';
-import 'package:ezspace/home.dart';
+import 'package:ezspace/application/home_bloc/home_bloc.dart';
+import 'package:ezspace/application/text_legth_bloc/text_length_bloc.dart';
 import 'package:ezspace/spash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => HomeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TextLengthBloc(),
         ),
       ],
       child: MaterialApp(
