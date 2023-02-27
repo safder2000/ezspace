@@ -13,13 +13,15 @@ class SplashScreen extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         BlocProvider.of<HomeBloc>(context).add(FetchSuggesions());
-        return Scaffold(
-          body: state.suggesionList.isEmpty
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : HomePage(),
-        );
+        if (state.suggesionList.isEmpty) {
+          // BlocProvider.of<HomeBloc>(context).add(FetchSuggesions());
+          return Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
+        } else {
+          return HomePage();
+        }
       },
     );
   }
